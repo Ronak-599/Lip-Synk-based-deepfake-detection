@@ -109,7 +109,7 @@ def background_analyze(job_id: str, video_path: str, app_config: dict):
             "status": "running",
             "progress": 5,
             "message": "Loading model...",
-            "started_at": datetime.utcnow().isoformat() + "Z",
+            "started_at": datetime.now(datetime.UTC if hasattr(datetime, 'UTC') else None).isoformat() + "Z" if hasattr(datetime, 'UTC') else datetime.utcnow().isoformat() + "Z",
         }
     )
 
@@ -453,7 +453,7 @@ def analyze():
         "status": "queued",
         "progress": 0,
         "message": "Queued",
-        "created_at": datetime.utcnow().isoformat() + "Z",
+        "created_at": datetime.now(datetime.UTC if hasattr(datetime, 'UTC') else None).isoformat() + "Z" if hasattr(datetime, 'UTC') else datetime.utcnow().isoformat() + "Z",
     }
 
     t = threading.Thread(target=background_analyze, args=(job_id, save_path, app.config), daemon=True)
@@ -520,5 +520,7 @@ if __name__ == "__main__":
     os.makedirs(app.config["RESULTS_FOLDER"], exist_ok=True)
     os.makedirs(app.config["MODELS_FOLDER"], exist_ok=True)
 
-    # App run
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    # App run - disable reloader to prevent job loss during processing
+    # Set DEBUG_RELOADER=1 environment variable to enable reloader during development
+    use_reloader = os.environ.get("DEBUG_RELOADER", "0") == "1"
+    app.run(host="0.0.0.0", port=5000, debug=True, use_reloader=use_reloader)
