@@ -1,0 +1,12 @@
+Flask==3.0.3
+tensorflow>=2.13,<3
+numpy
+opencv-python
+# Align with Colab preprocessing
+mediapipe==0.10.20
+moviepy
+librosa
+matplotlib
+pandas
+soundfile
+plotly

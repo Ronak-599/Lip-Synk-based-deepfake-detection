@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+.Python
+.env
+.venv/
+.venv310/
+venv/
+ENV/
+env/
+build/
+dist/
+*.egg-info/
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Data & uploads (generated)
+static/uploads/
+static/frames/
+static/results/*.json
+static/results/*.csv
+
+# Models & large artifacts
+models/*.h5
+models/*.hdf5
+models/*.keras
+models/*.pb
+*.tflite
+
+# Notebooks checkpoints
+.ipynb_checkpoints/
+
+# Cache
+.cache/
+.pytest_cache/
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
