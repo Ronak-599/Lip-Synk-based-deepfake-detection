@@ -61,6 +61,11 @@
 
             <div class="alert alert-info mt-4 mb-0 border-0">
               <strong>💡 How it works:</strong> Upload your video and our AI model will analyze lip-sync patterns across the timeline, detecting potential deepfake manipulations with frame-by-frame precision.
+              <div class="mt-3 small">
+                <strong>✓ Supported formats:</strong> MP4, AVI, FLV, MOV, MKV<br>
+                <strong>✓ Max size:</strong> 512MB<br>
+                <strong>✓ Processing time:</strong> Typically 30-60 seconds per minute of video
+              </div>
             </div>
           </div>
         </div>
@@ -157,7 +162,23 @@
 
     input.addEventListener('change', (e) => {
       if (e.target.files.length) {
-        showFileInfo(e.target.files[0]);
+        const file = e.target.files[0];
+        const maxSize = 512 * 1024 * 1024; // 512MB
+        const allowedTypes = ['video/mp4', 'video/avi', 'video/x-flv', 'video/quicktime', 'video/x-matroska'];
+        
+        if (file.size > maxSize) {
+          alert('❌ File too large! Maximum size is 512MB.');
+          e.target.value = '';
+          return;
+        }
+        
+        if (!allowedTypes.includes(file.type) && !file.name.match(/\.(mp4|avi|flv|mov|mkv)$/i)) {
+          alert('❌ Unsupported format! Please upload MP4, AVI, FLV, MOV, or MKV.');
+          e.target.value = '';
+          return;
+        }
+        
+        showFileInfo(file);
       }
     });
 

@@ -30,6 +30,7 @@ static/uploads/
 static/frames/
 static/results/*.json
 static/results/*.csv
+static/results/*.wav
 
 # Models & large artifacts
 models/*.h5
